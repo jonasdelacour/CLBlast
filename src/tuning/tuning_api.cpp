@@ -17,6 +17,7 @@
 #include <random>
 #include <utility>
 #include <algorithm>
+#include <iostream>
 
 #include "tuning/tuning.hpp"
 #include "tuning/kernels/xaxpy.hpp"
@@ -309,6 +310,18 @@ StatusCode TunerAPI(Queue &queue, const Arguments<T> &args, const int V,
   // Starts the tuning process
   auto results = std::vector<TuningResult>();
   for (auto config_id = size_t{0}; config_id < configurations.size(); ++config_id) {
+    // Display a simple progress bar
+    if (config_id == 0 || config_id == configurations.size() - 1 || config_id % (1 + configurations.size() / 20) == 0) {
+      const auto progress_percentage = static_cast<size_t>(100.0 * config_id / configurations.size());
+      std::cout << "\r[";
+      for (auto i = size_t{0}; i < 20; ++i) {
+        std::cout << (i < progress_percentage / 5 ? "=" : " ");
+      }
+      std::cout << "] " << progress_percentage << "% (" << config_id << "/" << configurations.size() << ")" << std::flush;
+      if (config_id == configurations.size() - 1) {
+        std::cout << std::endl;
+      }
+    }
     try {
       auto configuration = configurations[config_id];
 
