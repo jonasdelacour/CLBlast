@@ -104,7 +104,7 @@ StatusCode TuneXgemm(RawCommandQueue * queue, const size_t m, const size_t n, co
                      const double fraction, std::unordered_map<std::string,size_t> &parameters) {
   auto args = Arguments<T>(); args.fraction = fraction; args.m = m; args.n = n; args.k = k;
   auto queue_cpp = Queue(*queue);
-  auto status = TunerAPI<T>(queue_cpp, args, 2, XgemmGetTunerDefaults, XgemmGetTunerSettings<T>,
+  auto status = TunerAPI<T>(queue_cpp, args, 1, XgemmGetTunerDefaults, XgemmGetTunerSettings<T>,
                             XgemmTestValidArguments<T>, XgemmSetConstraints, XgemmComputeLocalMemSize<T>, XgemmSetArguments<T>, parameters);
   if (status != StatusCode::kSuccess) { return status; }
   return TunerAPI<T>(queue_cpp, args, 12, XgemmGetTunerDefaults, XgemmGetTunerSettings<T>,
@@ -121,7 +121,7 @@ StatusCode TuneXgemmDirect(RawCommandQueue * queue, const size_t m, const size_t
                            const double fraction, std::unordered_map<std::string,size_t> &parameters) {
   auto args = Arguments<T>(); args.fraction = fraction; args.m = m; args.n = n; args.k = k;
   auto queue_cpp = Queue(*queue);
-  return TunerAPI<T>(queue_cpp, args, 2, XgemmDirectGetTunerDefaults, XgemmDirectGetTunerSettings<T>,
+  return TunerAPI<T>(queue_cpp, args, 1, XgemmDirectGetTunerDefaults, XgemmDirectGetTunerSettings<T>,
                      XgemmDirectTestValidArguments<T>, XgemmDirectSetConstraints, XgemmDirectComputeLocalMemSize<T>, XgemmDirectSetArguments<T>, parameters);
 }
 template StatusCode PUBLIC_API TuneXgemmDirect<half>(RawCommandQueue*, const size_t, const size_t, const size_t, const double, std::unordered_map<std::string,size_t>&);
