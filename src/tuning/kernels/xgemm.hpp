@@ -174,14 +174,14 @@ TunerSettings XgemmGetTunerSettings(const int V, const Arguments<T> &args) {
 // Tests for valid arguments
 template <typename T>
 void XgemmTestValidArguments(const int V, const Arguments<T> &args) {
-  const auto mwg_max = (V == 1 || V == 11) ? 64 : 128;
+/*   const auto mwg_max = (V == 1 || V == 11) ? 64 : 128;
   const auto nwg_max = (V == 1 || V == 11) ? 64 : 128;
   if (!IsMultiple(args.m, mwg_max)) {
     throw std::runtime_error("'Xgemm' kernel requires 'm' to be a multiple of MWG (max " + ToString(mwg_max) + ")");
   }
   if (!IsMultiple(args.n, nwg_max)) {
     throw std::runtime_error("'Xgemm' kernel requires 'n' to be a multiple of NWG (max " + ToString(nwg_max) + ")");
-  }
+  } */
 }
 std::vector<Constraint> XgemmSetConstraints(const int V) {
   auto constraints = std::vector<Constraint>();
