@@ -118,6 +118,9 @@ void Tuner(int argc, char* argv[], const int V,
   args.platform_id = GetArgument(command_line_args, help, kArgPlatform, ConvertArgument(std::getenv("CLBLAST_PLATFORM"), size_t{0}));
   args.device_id   = GetArgument(command_line_args, help, kArgDevice, ConvertArgument(std::getenv("CLBLAST_DEVICE"), size_t{0}));
   args.precision   = GetArgument(command_line_args, help, kArgPrecision, Precision::kSingle);
+  args.layout       = GetArgument(command_line_args, help, kArgLayout, Layout::kRowMajor);
+  args.a_transpose  = GetArgument(command_line_args, help, kArgATransp, Transpose::kNo);
+  args.b_transpose  = GetArgument(command_line_args, help, kArgBTransp, Transpose::kNo);
   for (auto &o: defaults.options) {
     if (o == kArgM)        { args.m        = GetArgument(command_line_args, help, kArgM, defaults.default_m); }
     if (o == kArgN)        { args.n        = GetArgument(command_line_args, help, kArgN, defaults.default_n); }
